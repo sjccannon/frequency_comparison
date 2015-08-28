@@ -10,16 +10,29 @@ with open("hgmd") as infile1, open("result", "w") as outfile:
 				if "Disease causing mutation" in line:
 					outfile.write(line)
 
-#using regular expressions to identify where more than one variant has been identified 
+#using regular expressions to identify where more than one variant has been identified in a cohort
 p = re.compile('\d*,\d')
 
+#opening the exac file
 with open("exac.frequencies", "r") as file:
+	#looping through each line in the exac file
 	for line in file:
-		column = line.split()
-		str(column[1])
-		if p.match(column[1]):
-			print column[1] 
-
+		#splitting lines into useable columns
+		columns = line.split()
+		#identifying parts that have more than one varient 
+		if p.match(columns[1]):
+			#assigning a row to the variable more_mut if it meets the regular expression
+			more_mut = columns[1]
+			#removiing the comma from the identified strings
+			result = re.sub('[,]', '', more_mut)
+			#turning each digit into an integer
+			x = int(result)
+			print x
+			#for digit in str(result):
+			#	x = int(digit)
+			#	list_of_integers = list(x)
+			#num_in_list = len(list_of_strings))		
+ 
 
 #with open("result", "rw") as infile1, open("exac.frequencies", "r") as infile2:
 #	for line in infile2:
@@ -29,6 +42,4 @@ with open("exac.frequencies", "r") as file:
 #	for line in infile1:
 #		column = line.split()	
 #
-#if location in exac == location in HGMD
-	
-		
+#if location in exac == location in HGM
