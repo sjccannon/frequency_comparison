@@ -11,7 +11,7 @@ with open("hgmd") as infile1, open("result", "w") as outfile:
 					outfile.write(line)
 
 #using regular expressions to identify where more than one variant has been identified in a cohort
-p = re.compile('\d*,\d')
+p = re.compile('\d*,\d') #make sure match all numbers not just 1-9 
 
 #opening the exac file
 with open("exac.frequencies", "r") as file:
@@ -23,15 +23,28 @@ with open("exac.frequencies", "r") as file:
 		if p.match(columns[1]):
 			#assigning a row to the variable more_mut if it meets the regular expression
 			more_mut = columns[1]
+			print more_mut
+			num_in_list = len(more_mut)#everytime there is more than one for each of these things do that action
+			print num_in_list
 			#removiing the comma from the identified strings
 			result = re.sub('[,]', '', more_mut)
+			print result
 			#turning each digit into an integer
+			#need an array within a hash table 
+	#turn into array, put array in hash table with id (first column) as the key - the bit that
+	#links the tables together
+	#loop through the first file to do this to make the lookup database, in the array could have the third column as the final data element. can then remove this from the array 
+	#before each loop assign it to a variable if putting the array in by reference will have to de reference it. 
+	#
+	#key = id, the value for this key needs to be an array of 
+	#split by commas to form an array 
 			x = int(result)
-			print x
+			y = x.split()
+			print y
 			#for digit in str(result):
 			#	x = int(digit)
 			#	list_of_integers = list(x)
-			#num_in_list = len(list_of_strings))		
+					
  
 
 #with open("result", "rw") as infile1, open("exac.frequencies", "r") as infile2:
