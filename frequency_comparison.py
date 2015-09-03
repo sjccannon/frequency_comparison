@@ -1,6 +1,7 @@
 #objective: identify pathogenic variants in hgmd that have a MAF > 1 in exac
  
 import re
+import decimal
 
 #assign infiles and create an outfile 
 with open("hgmd") as infile1, open("result", "w") as outfile:
@@ -17,10 +18,11 @@ p = re.compile('^\d+,\d.*')
 #this looks for one number at the start of the string,the $ means tonly the number gets matched  
 q = re.compile('^\d+$')
 
-my_dict = {'location': 'list'}
+#creating a dictionary which can later be altere
+my_dict = {'location': 'list_of_MAFs'}
 
 #opening the exac file to be read
-with open("exac.frequencies", "r") as file:
+with open("test.freq", "r") as file:
 	#looping through each line in the exac file
 	for line in file:
 		#splitting lines into useable columns
@@ -30,13 +32,30 @@ with open("exac.frequencies", "r") as file:
 			#creating a list of each character from the string concatenated with the population column as the final character, split columns[1] by comma
 			#it's necessary to split the columns[2] variable so itself becomes a list 
 			more_mut = columns[1].split(",") + columns[2].split()			
-			#creating a dictionary lookup
-			my_dict[columns[0]] = more_mut			
-		elif q.match(columns[1]):
-			one_mut = columns[1].split() + columns[2].split() 	
-			my_dict[columns[0]] = one_mut
+			location = columns[0]
+			#print location
+			MAF_list = [] 
+			for mut in more_mut:
+				last = more_mut[-1]
+				if mut != last:
+					MAF = float(mut)/float(last)
+					MAF_list.append(MAF)
+					print MAF_list
+					#assigning these matches to a dictionary with postion as a key and the concatenated list as the value
+				#my_dict[columns[0]] = MAF
+				#print my_dict		
+				my_dict={location:MAF_list}	
+				print my_dict 
+		#identifying parts with only one varient
+		#elif q.match(columns[1]):
+		#	#assigning these matches to a dictionary with position as key and the concatenated lists as the value
+		#	one_mut = columns[1].split() + columns[2].split() 	
+		#	my_dict[columns[0]] = one_mut
 
 #print my_dict 
+
+
+
 
 			#num_in_list = len(more_mut)#everytime there is more than one for each of these things do that action
 			#print num_in_list
