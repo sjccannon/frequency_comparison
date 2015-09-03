@@ -3,9 +3,9 @@
 import re
 
 #assign infiles and create an outfile 
-with open("hgmd") as infile1, open("result", "w") as outfile:
+with open("hgmd") as infile, open("hgmd_disease", "w") as outfile:
 #write the variants annotated as disease causing in hgmd to the outfile 
-			for line in infile1:
+			for line in infile:
 				if "Disease causing mutation" in line:
 					outfile.write(line)
 
@@ -21,7 +21,7 @@ q = re.compile('^\d+$')
 my_dict = {}
 
 #opening the exac file to be read
-with open("exac.frequencies", "r") as file:
+with open("test.freq", "r") as file:
 	#looping through each line in the exac file
 	for line in file:
 		#splitting lines into useable columns
@@ -52,9 +52,29 @@ with open("exac.frequencies", "r") as file:
 				my_dict[location] = MAF_list
 		else:
 			print "error" + columns[1]
-
 #print  my_dict
 
-#compare locations of disease causing mutations from result file with dictionary entries
+#compare locations of disease causing mutations from hgmd_disease file with dictionary entries
+#open hgmd_disease file
 
-#open the 
+#compare hgmd_disease to my_dict which containing locations as keys and a list of MAF(s) as the values
+#iterate thrrough hgmd_disease lines using location
+
+with open("hgmd_disease", "r") as infile, open("hgmd_and_exac", "w") as outfile:
+	for line in infile:
+		columns = line.split()
+		columns[0] = k
+			for val in my_dict.intervalues():
+				if k in my_dict and val < 0.01: 
+				   	print k + val + columns 
+	
+#compare each location to the key and if and MAF >1 write to an output file
+		
+#output file to include exac colunms followed by hgmd_disease coulmns
+
+
+#can use this to count the lines in the given file
+#with open("hgmd_disease", "r") as f:  e_exac_MAF", "w") as outfile:
+#	for i,l in enumerate(f):
+#		pass
+#	print i + 1	
