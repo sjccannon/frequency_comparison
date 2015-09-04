@@ -80,33 +80,6 @@ with open("test.hgmd", "r") as file:
 				if each > 0.01:
 					print each	 
 
-
-#	for location in my_dict.iterkeys(): 	
-#		if k == location in my_dict:
-#			print k
-#	for key, value in my_dict.iteritems():
-#		print k
-#		if k == key:
-#			print key, value
-
-	#	v = my_dict.itervalues()
-	#	print v
-	#	for k in my_dict:
-	#		v = my_dict.iteritems() 
-	#		print k
-
-
-#			for val in v:
-#				if val > 0.01:
-#					print str(k) + str(v) + line
-
-
-#		for val in my_dict.itervalues():
-#			if k in my_dict and val > 0.01: 
-#			   	outfile.write(str(k) + str(val) + line) 
-	
-#compare each location to the key and if and MAF >1 write to an output file
-		
 #output file to include exac colunms followed by hgmd_disease coulmns
 
 
