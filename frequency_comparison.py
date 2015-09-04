@@ -21,7 +21,7 @@ q = re.compile('^\d+$')
 my_dict = {}
 
 #opening the exac file to be read
-with open("test.freq", "r") as file:
+with open("exac.frequencies", "r") as file:
 	#looping through each line in the exac file
 	for line in file:
 		#splitting lines into useable columns
@@ -63,22 +63,23 @@ with open("test.freq", "r") as file:
 #iterate thrrough hgmd_disease lines using location
 
 #open hgmd_disease file
-with open("test.hgmd", "r") as file:
+with open("hgmd_disease", "r") as infile, open("hgmd_and_exac", "w") as outfile:
 	#iterate through the lines
-	for line in file:
+	for line in infile:
 		#split each line into columns 
 		columns = line.split()
-		#assign colum [0] to variable k
+		#assign column [0] to variable k
 		k = columns[0]
 		#if column 0 (location) is in the dictionary keys
 		if k in my_dict.keys():
-			#assigne the values of that key to variable v
+			#assign the values of that key to variable v
 			v = (my_dict[k])
 			#for each value in the list relating to identified keys 
 			for each in v:
 				#if each value is greater than 0.01
 				if each > 0.01:
-					print each	 
+					print each
+					outfile.write(line + " " + str(each) + "\n")	 
 
 #output file to include exac colunms followed by hgmd_disease coulmns
 
