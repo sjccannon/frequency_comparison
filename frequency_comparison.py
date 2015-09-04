@@ -52,21 +52,58 @@ with open("test.freq", "r") as file:
 				my_dict[location] = MAF_list
 		else:
 			print "error" + columns[1]
+
+#with open("my_dict", "w") as file:
+#	file.write(my_dict)
 #print  my_dict
 
 #compare locations of disease causing mutations from hgmd_disease file with dictionary entries
-#open hgmd_disease file
 
-#compare hgmd_disease to my_dict which containing locations as keys and a list of MAF(s) as the values
+#compare hgmd_disease to my_dict which containins locations as keys and a list of MAF(s) as the values
 #iterate thrrough hgmd_disease lines using location
 
-with open("hgmd_disease", "r") as infile, open("hgmd_and_exac", "w") as outfile:
-	for line in infile:
+#open hgmd_disease file
+with open("test.hgmd", "r") as file:
+	#iterate through the lines
+	for line in file:
+		#split each line into columns 
 		columns = line.split()
-		columns[0] = k
-			for val in my_dict.intervalues():
-				if k in my_dict and val < 0.01: 
-				   	print k + val + columns 
+		#assign colum [0] to variable k
+		k = columns[0]
+		#if column 0 (location) is in the dictionary keys
+		if k in my_dict.keys():
+			#assigne the values of that key to variable v
+			v = (my_dict[k])
+			#for each value in the list relating to identified keys 
+			for each in v:
+				#if each value is greater than 0.01
+				if each > 0.01:
+					print each	 
+
+
+#	for location in my_dict.iterkeys(): 	
+#		if k == location in my_dict:
+#			print k
+#	for key, value in my_dict.iteritems():
+#		print k
+#		if k == key:
+#			print key, value
+
+	#	v = my_dict.itervalues()
+	#	print v
+	#	for k in my_dict:
+	#		v = my_dict.iteritems() 
+	#		print k
+
+
+#			for val in v:
+#				if val > 0.01:
+#					print str(k) + str(v) + line
+
+
+#		for val in my_dict.itervalues():
+#			if k in my_dict and val > 0.01: 
+#			   	outfile.write(str(k) + str(val) + line) 
 	
 #compare each location to the key and if and MAF >1 write to an output file
 		
