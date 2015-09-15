@@ -13,6 +13,7 @@ import re
 #using regular expressions to identify where more than one variant has been identified in a cohort
 #^ means at the start, \d means digit for 0-9, + means just one match, , is a literal comma, .* means anythin an unlimited number of times.
 #this therefore returns a match if it has a number comma number and then will greedily include everything else following the match   
+
 p = re.compile('^\d+,\d.*')
 
 #this looks for one number at the start of the string,the $ means tonly the number gets matched  
@@ -56,6 +57,7 @@ with open("exac.frequencies.test", "r") as file:
 					my_dict[location] = MAF_list
 		else:
 			print "error" + columns[1]
+print "dictionary complete"
 
 #with open("my_dict", "w") as file:
 #	file.write(my_dict)
@@ -66,8 +68,11 @@ with open("exac.frequencies.test", "r") as file:
 #compare hgmd_disease to my_dict which containins locations as keys and a list of MAF(s) as the values
 #iterate thrrough hgmd_disease lines using location
 
+count = 0
+count2 = 100000000
+
 #open hgmd_disease file
-with open("hgmd_disease", "r") as infile, open("test.result", "wa") as outfile:
+with open("hgmd_disease_genes", "r") as infile, open("test.result2", "wa") as outfile:
 	#iterate through the lines
 	for line in infile:
 		#split each line into columns 
@@ -77,16 +82,20 @@ with open("hgmd_disease", "r") as infile, open("test.result", "wa") as outfile:
 		#if column 0 (location) is in the dictionary keys
 		if key in my_dict.keys():
 			#assign the values of that key to variable v
-			#print k
+			print key
 			value = (my_dict[key])
 			#for each value in the list relating to identified keys 
+			count += 1
+			print count 
 			for each in value:
 				#if each value is greater than 0.01
 				if each > 0.01:
 					print key
 					print str(each) + "written"
 					outfile.write(line + " " + str(each) + "\n")	 
-
+#		else:
+#			count2 += 1 
+#			print str(key) + str(count2) 
 outfile.close()
 #output file to include exac colunms followed by hgmd_disease coulmns
 
